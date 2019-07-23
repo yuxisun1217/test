@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    node {
-      label 'jslave-PSI-azure1'
-    }
-
-  }
+  agent any
   stages {
     stage('Build') {
       steps {
@@ -12,12 +7,18 @@ pipeline {
       }
     }
     stage('Test1') {
-      steps {
-        echo 'Test1...'
+      parallel {
+        stage('Test1') {
+          steps {
+            echo 'Test1...'
+          }
+        }
+        stage('Test2') {
+          steps {
+            sh 'echo "Test2...."'
+          }
+        }
       }
     }
-  }
-  environment {
-    MSG = 'hello'
   }
 }
