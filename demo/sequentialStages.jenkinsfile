@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+    stages {
+        stage("sequential parallel") {
+            parallel {
+                stage("windows") {
+                    stages {
+                        stage("build") {
+                            steps {
+                                println "Windows Build"
+                            }
+                        }
+                        stage("test") {
+                            steps {
+                                println "Windows Test"
+                            }
+                        }
+                    }
+                }
+                stage("linux") {
+                    stages {
+                        stage("build") {
+                            steps {
+                                println "Linux Build"
+                            }
+                        }
+                        stage("test") {
+                             steps {
+                                println "Linux Test"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
